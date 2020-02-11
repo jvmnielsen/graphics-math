@@ -1,2 +1,2 @@
 # graphics-math
-A C++17 linear algebra library for graphics
+A simple, header-only C++17 linear algebra library for graphics
