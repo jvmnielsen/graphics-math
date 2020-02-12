@@ -8,7 +8,7 @@ target_sources(tests
     vector-tests.cpp
 )
 
-target_link_libraries(tests Catch2::Catch2 graphics-math gcem)
+target_link_libraries(tests Catch2::Catch2 graphics-math)
 target_compile_features(tests PRIVATE cxx_std_17)
 
 include(CTest)
