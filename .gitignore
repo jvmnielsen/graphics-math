@@ -1,5 +1,7 @@
 # Build directory
-/build 
+build 
+out
+.vs
 
 # Prerequisites
 *.d
