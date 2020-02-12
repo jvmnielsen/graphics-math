@@ -8,12 +8,15 @@ namespace gm {
     public:
         Type x, y, z;
 
+        constexpr Vec3() { x = y = z = 0; }
+        constexpr Vec3(Type x, Type y, Type z) : x(x), y(y), z(z) { }
+
         auto constexpr lengthSquared() const -> Type {
             return x * x + y * y + z * z;
         }
 
         auto constexpr length() const -> Type {
-            return gcem::sqrt(lengthSquared());
+            return static_cast<Type>(gcem::sqrt(lengthSquared()));
         }
 
     };
