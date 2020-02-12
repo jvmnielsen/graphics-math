@@ -19,6 +19,7 @@ install(TARGETS ${PROJECT_NAME}
 
 
 add_subdirectory(thirdparty)
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/thirdparty/Catch2/contrib) # find Catch2 scripts for automatically adding tests
 
 enable_testing()
 add_subdirectory(test)
