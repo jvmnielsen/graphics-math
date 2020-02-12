@@ -1,4 +1,5 @@
 #pragma once
+#include <gcem.hpp>
 
 namespace gm {
 
@@ -9,6 +10,10 @@ namespace gm {
 
         auto constexpr lengthSquared() const -> Type {
             return x * x + y * y + z * z;
+        }
+
+        auto constexpr length() const -> Type {
+            return gcem::sqrt(lengthSquared());
         }
 
     };

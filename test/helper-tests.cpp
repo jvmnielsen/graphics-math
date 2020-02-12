@@ -20,5 +20,18 @@ TEST_CASE( "is constexpr", "[sqrt]" ) {
             REQUIRE( false );
         }
     }   
+}
+
+TEST_CASE( "works with different types", "[sqrt]" ) {
+
+    SECTION( "with float" ) {
+        auto const num = 99021.2;
+        REQUIRE( gm::sqrt(num) == Approx(314.676) );
+    }    
+
+    SECTION( "with int" ) {
+        auto const num = 2828271;
+        REQUIRE( gm::sqrt(num) == 1682 );
+    }   
 
 }

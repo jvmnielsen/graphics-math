@@ -8,7 +8,7 @@ namespace gm {
         if(l == r){
             return r;
         } else {
-            const auto mid = (r + l) / 2;
+            auto const mid = (r + l) / 2;
 
             if(mid * mid >= res){
                 return sqrt(res, l, mid);
