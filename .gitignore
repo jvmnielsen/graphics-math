@@ -1,8 +1,9 @@
+.vscode
 .idea
 cmake-build*
 
 # Build directory
-build 
+build
 out
 .vs
 
