@@ -5,21 +5,32 @@
 #include <type_traits>
 
 TEMPLATE_TEST_CASE(
-    "Vec3s (integers) have length", "[Vec3]",
-    std::int32_t, std::int64_t)
+    "Vec3s have length", "[Vec3]",
+    std::int32_t, std::int64_t,
+    float, double)
 {
     auto v = gm::Vec3<TestType>{ 1, 2, 6 };
     REQUIRE( v.x == 1 );
     REQUIRE( v.y == 2 );
     REQUIRE( v.z == 6 );
+    
+    REQUIRE( v.length_squared() == static_cast<TestType>(41) );
 
-    REQUIRE( v.length() == 6 );
-    REQUIRE( v.length_squared() == 41 );
+    if constexpr (std::is_floating_point<TestType>::value) {
+        REQUIRE( v.length() == Approx(6.403).epsilon(0.01) );
+    } else {
+        REQUIRE( v.length() == 6 );
+    }
 
     SECTION( "length changes with resize" ) {
         v.x = 63;
-        REQUIRE( v.length() == 63 );
-        REQUIRE( v.length_squared() == 4009 );
+        if constexpr (std::is_floating_point<TestType>::value) {
+            REQUIRE( v.length() == Approx(63.317).epsilon(0.01) );
+            REQUIRE( v.length_squared() == Approx(4009).epsilon(0.01) );
+        } else {
+            REQUIRE( v.length() == 63 );
+            REQUIRE( v.length_squared() == 4009 );
+        }
     }
 
     SECTION( "default length is zero" ) {
@@ -29,6 +40,7 @@ TEMPLATE_TEST_CASE(
     }
 }
 
+/*
 TEMPLATE_TEST_CASE(
     "Vec3s (floating point) have length", "[Vec3]",
     float, double)
@@ -58,7 +70,7 @@ TEMPLATE_TEST_CASE(
         REQUIRE( w.length_squared() == Approx(0).epsilon(0.001) );
     }
 }
-
+*/ 
 TEMPLATE_TEST_CASE( "Basic operators", "[Vec3]", std::int32_t, std::int64_t, float, double ) {
     auto const v = gm::Vec3<TestType>{ 1, 8, 9 };
     auto const u = gm::Vec3<TestType>{ 7, 2, 2 };
@@ -93,15 +105,37 @@ TEMPLATE_TEST_CASE( "Dot product", "[Vec3]", std::int32_t, std::int64_t, float, 
     }
 }
 
+TEMPLATE_TEST_CASE( "cross product", "[Vec3]", std::int32_t, std::int64_t, float, double ) {
+    auto const v = gm::Vec3<TestType>{ 2, 3, 4 };
+    auto const u = gm::Vec3<TestType>{ 5, 6, 7 };
+    
+    REQUIRE( v.cross(u) == gm::Vec3<TestType>{ -3, 6, -3 } );
+    REQUIRE( cross(v, u) == gm::Vec3<TestType>{ -3, 6, -3 } );
+}
+
 TEMPLATE_TEST_CASE( "scaling by constant", "[Vec3]", std::int32_t, std::int64_t, float, double ) {
     auto const v = gm::Vec3<TestType>{ 9, 828, 18 };
     auto const factor = static_cast<TestType>(4);
+    auto const divisor = static_cast<TestType>(5);
 
     SECTION( "multiplication" ) {
         REQUIRE( factor * v == gm::Vec3<TestType>{ 36, 3312, 72 } );
     }
     SECTION( "multiplication by 0" ) {
         REQUIRE( static_cast<TestType>(0) * v == gm::Vec3<TestType>{ 0, 0, 0 } );
+    }
+    SECTION( "division" ) {
+        if constexpr (std::is_floating_point<TestType>::value) {
+            auto const w = v / divisor; 
+            REQUIRE( w.x == Approx(1.8).epsilon(0.01) );
+            REQUIRE( w.y == Approx(165.6).epsilon(0.01) );
+            REQUIRE( w.z == Approx(3.6).epsilon(0.01) );
+        } else {
+            auto const w = v / divisor; 
+            REQUIRE( w.x == 1);
+            REQUIRE( w.y == 165);
+            REQUIRE( w.z == 3);
+        }
     }
 }
 

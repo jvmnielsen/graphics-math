@@ -56,11 +56,26 @@ namespace gm {
             return gm::dot(*this, other); 
         }
 
+        auto constexpr cross(Vec3 const& other) const -> Vec3 {
+            return gm::cross(*this, other); 
+        }
+
+        auto constexpr operator/(Type const scalar) const -> Vec3 {
+            return { x / scalar, y / scalar, z / scalar };
+        }
+
     };
 
     template<typename Type>
     auto constexpr dot(Vec3<Type> const& v, Vec3<Type> const& u) -> Type {
         return v.x * u.x + v.y * u.y + v.z * u.z;
+    }
+
+    template< typename T > 
+    auto cross(Vec3<T> const& u, Vec3<T> const& v) -> Vec3<T> {
+        return { u.y * v.z - u.z * v.y,
+                 u.z * v.x - u.x * v.z,
+                 u.x * v.y - u.y * v.x };
     }
 
     template<typename Type>
