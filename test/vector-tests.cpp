@@ -40,37 +40,6 @@ TEMPLATE_TEST_CASE(
     }
 }
 
-/*
-TEMPLATE_TEST_CASE(
-    "Vec3s (floating point) have length", "[Vec3]",
-    float, double)
-{
-    auto v = gm::Vec3<TestType>{ 1, 2, 6 };
-    REQUIRE( v.x == 1 );
-    REQUIRE( v.y == 2 );
-    REQUIRE( v.z == 6 );
-
-    REQUIRE( v.length() == Approx(6.403).epsilon(0.01) );
-    REQUIRE( v.length_squared() == Approx(41).epsilon(0.01) );
-
-    SECTION( "length changes with resize" ) {
-        v.x = 63;
-        REQUIRE( v.length() == Approx(63.317).epsilon(0.01) );
-        REQUIRE( v.length_squared() == Approx(4009).epsilon(0.01) );
-    }
-
-    SECTION( "negative length is the same" ) {
-        v.x = -63;
-        REQUIRE( v.length() == Approx(63.317).epsilon(0.01) );
-    }
-
-    SECTION( "default length is zero" ) {
-        auto const w = gm::Vec3<TestType>{ };
-        REQUIRE( w.length() == Approx(0).epsilon(0.001) );
-        REQUIRE( w.length_squared() == Approx(0).epsilon(0.001) );
-    }
-}
-*/ 
 TEMPLATE_TEST_CASE( "Basic operators", "[Vec3]", std::int32_t, std::int64_t, float, double ) {
     auto const v = gm::Vec3<TestType>{ 1, 8, 9 };
     auto const u = gm::Vec3<TestType>{ 7, 2, 2 };

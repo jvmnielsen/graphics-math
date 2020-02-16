@@ -8,6 +8,9 @@
 
 namespace gm {
 
+    template<typename Type>
+    class Normal3<Type>;
+
     template<typename Type, REQUIRES(std::is_arithmetic<Type>())>
     class Vec3 {
     public:
@@ -62,6 +65,12 @@ namespace gm {
 
         auto constexpr operator/(Type const scalar) const -> Vec3 {
             return { x / scalar, y / scalar, z / scalar };
+        }
+
+        auto constexpr to_normal() const -> Normal3 {
+            auto const len = length();
+            assert(len > 0);
+            return { x / len, y / len, z / len };
         }
 
     };
