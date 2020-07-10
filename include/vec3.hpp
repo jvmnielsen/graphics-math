@@ -9,7 +9,7 @@
 namespace gm {
 
     template<typename Type>
-    class Normal3<Type>;
+    class Normal3;
 
     template<typename Type, REQUIRES(std::is_arithmetic<Type>())>
     class Vec3 {
@@ -27,16 +27,16 @@ namespace gm {
             return static_cast<Type>(gcem::sqrt(length_squared()));
         }
 
-        auto constexpr operator+(Vec3 const& other) const -> Vec3 {
+        auto constexpr operator+(Vec3<Type> const& other) const -> Vec3<Type> {
             return { x + other.x, y + other.y, z + other.z };
         }
 
-        auto constexpr operator-(Vec3 const& other) const -> Vec3 {
+        auto constexpr operator-(Vec3<Type> const& other) const -> Vec3<Type> {
             return { x - other.x, y - other.y, z - other.z };
         }
 
         // unary minus
-        auto constexpr operator-() const -> Vec3 { 
+        auto constexpr operator-() const -> Vec3<Type> { 
             return { -x, -y, -z };
         }
 
@@ -47,11 +47,11 @@ namespace gm {
             return z;
         }
 
-        auto constexpr operator==(Vec3 const& other) const -> bool {
+        auto constexpr operator==(Vec3<Type> const& other) const -> bool {
             return x == other.x && y == other.y && z == other.z;
         }
 
-        auto constexpr operator!=(Vec3 const& other) const -> bool {
+        auto constexpr operator!=(Vec3<Type> const& other) const -> bool {
             return x != other.x || y != other.y || z != other.z;
         } 
 
@@ -59,15 +59,15 @@ namespace gm {
             return gm::dot(*this, other); 
         }
 
-        auto constexpr cross(Vec3 const& other) const -> Vec3 {
+        auto constexpr cross(Vec3<Type> const& other) const -> Vec3<Type> {
             return gm::cross(*this, other); 
         }
 
-        auto constexpr operator/(Type const scalar) const -> Vec3 {
+        auto constexpr operator/(Type const scalar) const -> Vec3<Type> {
             return { x / scalar, y / scalar, z / scalar };
         }
 
-        auto constexpr to_normal() const -> Normal3 {
+        auto constexpr to_normal() const -> Normal3<Type> {
             auto const len = length();
             assert(len > 0);
             return { x / len, y / len, z / len };

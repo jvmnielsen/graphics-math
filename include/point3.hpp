@@ -13,15 +13,15 @@ class Point3 {
     constexpr Point3() { x = y = z = 0; }
     constexpr Point3(Type x, Type y, Type z) : x(x), y(y), z(z) { }
 
-    auto constexpr operator-(Point3 const& other) const -> Vec3 {
+    auto constexpr operator-(Point3<Type> const& other) const -> Vec3<Type> {
         return { x - other.x, y - other.y, z - other.z };
     }
 
-    auto constexpr operator+(Vec3 const& v) const -> Point3 {
+    auto constexpr operator+(Vec3<Type> const& v) const -> Point3<Type> {
         return { x + v.x, y + v.y, z + v.z };
     }
 
-    auto constexpr operator-(Vec3 const& v) const -> Point3 {
+    auto constexpr operator-(Vec3<Type> const& v) const -> Point3<Type> {
         return { x - v.x, y - v.y, z - v.z };
     }
 
