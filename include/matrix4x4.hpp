@@ -31,6 +31,7 @@ namespace gm {
         auto constexpr operator()(int i, int j) -> Type& { return m[i][j]; }
         auto constexpr operator()(int i, int j) const -> Type const& { return m[i][j]; }
 
+        // TODO: handle floating point epsilon
         auto constexpr operator==(Matrix4x4<Type> other) const -> bool {
             return m == other.m; 
         }
@@ -67,7 +68,7 @@ namespace gm {
                      0, 0, 0, 1 };
         }
 
-        auto inverse() const -> Matrix4x4 {
+        auto inverse() const -> Matrix4x4<Type> {
             //static_assert(N == M, "Matrix is not square!");
 
             auto tmp = *this;
@@ -124,48 +125,47 @@ namespace gm {
         }
 
 
-        static auto constexpr multiply(Matrix4x4<Type> const& a, Matrix4x4<Type> const& b, Matrix4x4<Type>& c) -> void {
+        static auto constexpr multiply(Matrix4x4<Type> const& a, Matrix4x4<Type> const& b) -> Matrix4x4<Type> {
             // rolled up version rather than writing out the arguments
+            auto c = Matrix4x4::identity();
             for (uint8_t i = 0; i < 4; ++i) {
                 for (uint8_t j = 0; j < 4; ++j) {
                     c.m[i][j] = a.m[i][0] * b.m[0][j] + a.m[i][1] * b.m[1][j] +
                         a.m[i][2] * b.m[2][j] + a.m[i][3] * b.m[3][j];
                 }
             }
+            return c;
         }
 
         auto constexpr operator*(Matrix4x4<Type> const& other) const -> Matrix4x4<Type> {
-            Matrix4x4 tmp;
-            multiply(*this, other, tmp);
-            return tmp;
+            return multiply(*this, other);
         }
 
 
         auto constexpr operator*=(Matrix4x4<Type> const& other) -> Matrix4x4<Type>& {
-            Matrix4x4 tmp;
-            multiply(*this, other, tmp);
-            *this = tmp;
+            *this =  multiply(*this, other);
             return *this;
         }
 
 
-        auto constexpr multiply(Point3<Type> const& point) const -> Point3<Type> {
-            auto a = point[0] * m[0][0] + point[1] * m[1][0] + point[2] * m[2][0] + m[3][0];
-            auto b = point[0] * m[0][1] + point[1] * m[1][1] + point[2] * m[2][1] + m[3][1];
-            auto c = point[0] * m[0][2] + point[1] * m[1][2] + point[2] * m[2][2] + m[3][2];
-            auto w = point[0] * m[0][3] + point[1] * m[1][3] + point[2] * m[2][3] + m[3][3];
+        // auto constexpr multiply(Point3<Type> const& point) const -> Point3<Type> {
+        //     auto a = point[0] * m[0][0] + point[1] * m[1][0] + point[2] * m[2][0] + m[3][0];
+        //     auto b = point[0] * m[0][1] + point[1] * m[1][1] + point[2] * m[2][1] + m[3][1];
+        //     auto c = point[0] * m[0][2] + point[1] * m[1][2] + point[2] * m[2][2] + m[3][2];
+        //     auto w = point[0] * m[0][3] + point[1] * m[1][3] + point[2] * m[2][3] + m[3][3];
 
-            return { a / w, b / w, c / w };
-        }
+        //     return { a / w, b / w, c / w };
+        // }
 
-        auto constexpr multiply(const Vec3<Type>& vec) const -> Vec3<Type> {
-            auto a = vec[0] * m[0][0] + vec[1] * m[1][0] + vec[2] * m[2][0] + m[3][0];
-            auto b = vec[0] * m[0][1] + vec[1] * m[1][1] + vec[2] * m[2][1] + m[3][1];
-            auto c = vec[0] * m[0][2] + vec[1] * m[1][2] + vec[2] * m[2][2] + m[3][2];
-            auto w = vec[0] * m[0][3] + vec[1] * m[1][3] + vec[2] * m[2][3] + m[3][3];
+        // auto constexpr multiply(const Vec3<Type>& vec) const -> Vec3<Type> {
+        //     // implicitly extend vector to Vec4 with 1 as last element 
+        //     auto a = vec[0] * m[0][0] + vec[1] * m[1][0] + vec[2] * m[2][0] + m[3][0];
+        //     auto b = vec[0] * m[0][1] + vec[1] * m[1][1] + vec[2] * m[2][1] + m[3][1];
+        //     auto c = vec[0] * m[0][2] + vec[1] * m[1][2] + vec[2] * m[2][2] + m[3][2];
+        //     // auto w = vec[0] * m[0][3] + vec[1] * m[1][3] + vec[2] * m[2][3] + m[3][3];
 
-            return { a, b, c };
-        }
+        //     return { a, b, c };
+        // }
 
         // TODO: scalar multiplication, matrix-matrix addition and subtraction
 
