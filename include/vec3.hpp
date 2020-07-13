@@ -6,6 +6,7 @@
 
 #include <type_traits>
 #include <cassert>
+#include <ostream>
 
 
 namespace gm {
@@ -47,11 +48,23 @@ namespace gm {
         }
 
         auto constexpr operator==(Vec3<Type> const& other) const -> bool {
-            return x == other.x && y == other.y && z == other.z;
+            if constexpr (std::is_floating_point_v<Type>) {
+                return gcem::abs(x - other.x) < constants::epsilon
+                    && gcem::abs(y - other.y) < constants::epsilon
+                    && gcem::abs(y - other.y) < constants::epsilon;
+            } else {
+                return x == other.x && y == other.y && z == other.z;
+            }
         }
 
         auto constexpr operator!=(Vec3<Type> const& other) const -> bool {
-            return x != other.x || y != other.y || z != other.z;
+            if constexpr (std::is_floating_point_v<Type>) {
+                return gcem::abs(x - other.x) > constants::epsilon
+                    || gcem::abs(y - other.y) > constants::epsilon
+                    || gcem::abs(y - other.y) > constants::epsilon;
+            } else {
+                return x != other.x || y != other.y || z != other.z;
+            }
         } 
 
         auto constexpr dot(Vec3 const& other) const -> Type {
@@ -75,6 +88,11 @@ namespace gm {
                 y / len, 
                 z / len 
             }; // TODO: consider pre-calculating inverse and multiplying
+        }
+
+        auto friend operator<<(std::ostream &os, Vec3<Type> const& v) -> std::ostream & {
+            os << '[' << v.x << ',' << v.y << ',' << v.z <<']' << '\n';
+            return os;
         }
 
     };
