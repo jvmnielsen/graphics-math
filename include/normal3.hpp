@@ -1,15 +1,16 @@
 #pragma once
 
 #include "util.hpp"
-#include "vec3.hpp"
+// #include "vec3.hpp"
 
-namespace gm {
+namespace gm { 
 
-    template<typename Type> 
+    template<typename Type>
     class Normal3 {
     private:
-        friend class Vec3<Type>;
-        constexpr Normal3() : m_x(1), m_y(0), m_z(0) { }
+        template<typename T, std::enable_if_t<std::is_arithmetic<T>::value, int> = 0>
+        friend class Vec3;
+
         constexpr Normal3(Type x, Type y, Type z) : m_x(x), m_y(y), m_z(z) { }  
         Type m_x, m_y, m_z;   
     public:

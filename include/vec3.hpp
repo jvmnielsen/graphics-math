@@ -1,5 +1,6 @@
 #pragma once
 #include "util.hpp"
+#include "normal3.hpp"
 
 #include <gcem.hpp>
 
@@ -9,10 +10,7 @@
 
 namespace gm {
 
-    template<typename T>
-    class Normal3;
-
-    template<typename Type, REQUIRES(std::is_arithmetic<Type>())>
+    template<typename Type, std::enable_if_t<std::is_arithmetic<Type>::value, int> = 0>
     class Vec3 {
     public:
         Type x, y, z;
@@ -68,11 +66,15 @@ namespace gm {
             return { x / scalar, y / scalar, z / scalar };
         }
 
-        template<typename T, REQUIRES(std::is_floating_point<T>())>
-        auto constexpr to_normal() const -> Normal3<T> {
+        auto constexpr to_normal() const -> Normal3<Type> {
+            static_assert(std::is_floating_point_v<Type>);
             auto const len = length();
             assert(len > 0);
-            return { x / len, y / len, z / len }; // TODO: consider pre-calculating inverse and multiplying
+            return { 
+                x / len, 
+                y / len, 
+                z / len 
+            }; // TODO: consider pre-calculating inverse and multiplying
         }
 
     };
