@@ -116,26 +116,4 @@ TEMPLATE_TEST_CASE(
     REQUIRE(identity(3, 1) == Approx(0));
     REQUIRE(identity(3, 2) == Approx(0));
     REQUIRE(identity(3, 3) == Approx(1));
-    
-
-    // REQUIRE(inverse(0, 1) == Approx(0.5));
-    // REQUIRE(inverse(0, 2) == Approx(0));
-    // REQUIRE(inverse(0, 3) == Approx(-0.5));
-
-    // REQUIRE(inverse(1, 0) == Approx(-2));
-    // REQUIRE(inverse(1, 1) == Approx(-2));
-    // REQUIRE(inverse(1, 2) == Approx(-2));
-    // REQUIRE(inverse(1, 3) == Approx(-2));
-
-    // REQUIRE(inverse(2, 0) == Approx(-2));
-    // REQUIRE(inverse(2, 1) == Approx(-2));
-    // REQUIRE(inverse(2, 2) == Approx(-2));
-    // REQUIRE(inverse(2, 3) == Approx(-2));
-
-    // REQUIRE(inverse(2, 0) == Approx(-2));
-    // REQUIRE(inverse(2, 1) == Approx(-2));
-    // REQUIRE(inverse(2, 2) == Approx(-2));
-    // REQUIRE(inverse(2, 3) == Approx(-2));
-
-
 }

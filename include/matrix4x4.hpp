@@ -17,6 +17,8 @@ namespace gm {
         std::array<std::array<Type, 4>, 4> m;
     public:
 
+        // constexpr Matrix4x4() = default; 
+
         constexpr Matrix4x4
         (Type a00, Type a01, Type a02, Type a03,
          Type a10, Type a11, Type a12, Type a13,
@@ -147,27 +149,9 @@ namespace gm {
             return *this;
         }
 
-
-        // auto constexpr multiply(Point3<Type> const& point) const -> Point3<Type> {
-        //     auto a = point[0] * m[0][0] + point[1] * m[1][0] + point[2] * m[2][0] + m[3][0];
-        //     auto b = point[0] * m[0][1] + point[1] * m[1][1] + point[2] * m[2][1] + m[3][1];
-        //     auto c = point[0] * m[0][2] + point[1] * m[1][2] + point[2] * m[2][2] + m[3][2];
-        //     auto w = point[0] * m[0][3] + point[1] * m[1][3] + point[2] * m[2][3] + m[3][3];
-
-        //     return { a / w, b / w, c / w };
-        // }
-
-        // auto constexpr multiply(const Vec3<Type>& vec) const -> Vec3<Type> {
-        //     // implicitly extend vector to Vec4 with 1 as last element 
-        //     auto a = vec[0] * m[0][0] + vec[1] * m[1][0] + vec[2] * m[2][0] + m[3][0];
-        //     auto b = vec[0] * m[0][1] + vec[1] * m[1][1] + vec[2] * m[2][1] + m[3][1];
-        //     auto c = vec[0] * m[0][2] + vec[1] * m[1][2] + vec[2] * m[2][2] + m[3][2];
-        //     // auto w = vec[0] * m[0][3] + vec[1] * m[1][3] + vec[2] * m[2][3] + m[3][3];
-
-        //     return { a, b, c };
-        // }
-
-        // TODO: scalar multiplication, matrix-matrix addition and subtraction
+        auto constexpr operator=(Matrix4x4<Type> const& other) -> Matrix4x4<Type> {
+            m = other.m; 
+        }
 
     };
     typedef Matrix4x4<float> Matrix4x4f;

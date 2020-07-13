@@ -1,19 +1,13 @@
-
-# include_directories(${CMAKE_SOURCE_DIR}/thirdparty/Catch2/)
-
-add_executable(tests)
-target_sources(tests
-    PRIVATE
+add_executable(tests
     catch.cpp
     vector-tests.cpp
     matrix-tests.cpp
     utility-tests.cpp
+    transformation-tests.cpp
 )
 
 find_package(Catch2 CONFIG REQUIRED)
-# target_link_libraries(main  Catch2::Catch2)
-
-target_link_libraries(tests PRIVATE Catch2::Catch2 graphics-math)
+target_link_libraries(tests PRIVATE graphics-math Catch2::Catch2)
 target_compile_features(tests PRIVATE cxx_std_17)
 
 include(CTest)
