@@ -1,14 +1,10 @@
 cmake_minimum_required(VERSION 3.12)
-project(graphics-math VERSION 0.1.0
-    DESCRIPTION "A header only c++ library."
-    HOMEPAGE_URL "https://github.com/bernedom/SI")
- 
+project(graphics-math VERSION 0.1.0)
 
 add_library(graphics-math INTERFACE)
 target_include_directories(
   ${PROJECT_NAME}
-  INTERFACE $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/include>
-            $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+  INTERFACE include src)
 
 find_package(gcem CONFIG REQUIRED)
 target_link_libraries(graphics-math INTERFACE gcem)

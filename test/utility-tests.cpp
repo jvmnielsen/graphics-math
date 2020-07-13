@@ -27,8 +27,7 @@ TEMPLATE_TEST_CASE(
 
     auto constexpr sol1 = gm::solve_quadratic(2, 5, -3);
     REQUIRE(sol1.has_value());
-    // auto constexpr tupl1 = sol1.value();
     auto const [val1, val2] = sol1.value(); 
-    REQUIRE(val1 == Approx(-3));
-    REQUIRE(val2 == Approx(0.5));
+    REQUIRE(val1 == Approx(-3.0f));
+    REQUIRE(val2 == Approx(0.5f));
 }

@@ -10,9 +10,9 @@ namespace gm {
     namespace constants {
         inline constexpr FLOAT max_float = std::numeric_limits<FLOAT>::max();
         inline constexpr FLOAT min_float = std::numeric_limits<FLOAT>::lowest();
-        inline constexpr FLOAT pi = 3.14159265358979323846;
-        inline constexpr FLOAT inv_pi = 0.31830988618379067154;
-        inline constexpr FLOAT epsilon = 1e-5;
+        inline constexpr FLOAT pi = static_cast<FLOAT>(3.14159265358979323846);
+        inline constexpr FLOAT inv_pi = static_cast<FLOAT>(0.31830988618379067154);
+        inline constexpr FLOAT epsilon = static_cast<FLOAT>(1e-5);
     };
   
     // as of c++17 this is defined in the STL
@@ -28,7 +28,7 @@ namespace gm {
 
     template<typename T>
     auto constexpr degree_to_radian(T degree) -> FLOAT {
-        return degree * constants::pi / 180.0;
+        return static_cast<FLOAT>(degree * constants::pi / 180.0);
     }
 
     // Returns in order smallest to largest solution

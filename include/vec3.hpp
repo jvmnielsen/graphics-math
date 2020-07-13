@@ -9,7 +9,7 @@
 
 namespace gm {
 
-    template<typename Type>
+    template<typename T>
     class Normal3;
 
     template<typename Type, REQUIRES(std::is_arithmetic<Type>())>
@@ -68,10 +68,12 @@ namespace gm {
             return { x / scalar, y / scalar, z / scalar };
         }
 
-        auto constexpr to_normal() const -> Normal3<Type> {
+        // template<typename T, REQUIRES(std::is_floating_point<T>())>
+        template<typename T, REQUIRES(std::is_floating_point<T>())>
+        auto constexpr to_normal() const -> Normal3<T> {
             auto const len = length();
             assert(len > 0);
-            return { x / len, y / len, z / len };
+            return { x / len, y / len, z / len }; // TODO: consider pre-calculating inverse and multiplying
         }
 
     };
@@ -92,5 +94,8 @@ namespace gm {
     auto constexpr operator*(Type const scalar, Vec3<Type> const& v) -> Vec3<Type> {
         return { scalar * v.x, scalar * v.y, scalar * v.z };
     }
+
+    typedef Vec3<FLOAT> Vec3f;
+    typedef Vec3<int> Vec3i;
 
 }

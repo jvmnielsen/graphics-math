@@ -120,12 +120,13 @@ TEMPLATE_TEST_CASE( "accessors", "[Vec3]", std::int32_t, std::int64_t, float, do
     REQUIRE( v[2] == -12 );
 }
 
-/*
-TEMPLATE_TEST_CASE( "normalise", "[Vec3]", std::int32_t, std::int64_t, float, double ) {
-    auto const v = gm::Vec3<TestType>{ 1, 1, 2 };
+
+TEMPLATE_TEST_CASE( "To normal", "[Vec3]", float, double ) {
+    auto constexpr v = gm::Vec3<TestType>{ 1, 1, 2 };
     if constexpr (std::is_floating_point<TestType>::value) {
-        REQUIRE( v.normalise() == gm::Normal3<TestType>{ } );
-    } else {
-        REQUIRE( )
+        auto constexpr n = v.to_normal<TestType>();
+        REQUIRE(n.x() == Approx(0.40824829046));
+        REQUIRE(n.y() == Approx(0.40824829046));
+        REQUIRE(n.z() == Approx(0.81649658092));
     }
-} */
+} 
