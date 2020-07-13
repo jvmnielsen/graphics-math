@@ -68,7 +68,6 @@ namespace gm {
             return { x / scalar, y / scalar, z / scalar };
         }
 
-        // template<typename T, REQUIRES(std::is_floating_point<T>())>
         template<typename T, REQUIRES(std::is_floating_point<T>())>
         auto constexpr to_normal() const -> Normal3<T> {
             auto const len = length();
@@ -83,8 +82,8 @@ namespace gm {
         return v.x * u.x + v.y * u.y + v.z * u.z;
     }
 
-    template< typename T > 
-    auto cross(Vec3<T> const& u, Vec3<T> const& v) -> Vec3<T> {
+    template<typename Type> 
+    auto cross(Vec3<Type> const& u, Vec3<Type> const& v) -> Vec3<Type> {
         return { u.y * v.z - u.z * v.y,
                  u.z * v.x - u.x * v.z,
                  u.x * v.y - u.y * v.x };
