@@ -1,10 +1,11 @@
 #pragma once
+#include "util.hpp"
+
 #include <gcem.hpp>
 
 #include <type_traits>
 #include <cassert>
 
-#define REQUIRES(...) typename std::enable_if<(__VA_ARGS__), int>::type = 0
 
 namespace gm {
 

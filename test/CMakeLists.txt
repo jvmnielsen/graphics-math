@@ -7,6 +7,7 @@ target_sources(tests
     catch.cpp
     vector-tests.cpp
     matrix-tests.cpp
+    utility-tests.cpp
 )
 
 find_package(Catch2 CONFIG REQUIRED)
