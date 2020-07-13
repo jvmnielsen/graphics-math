@@ -1,16 +1,17 @@
 cmake_minimum_required(VERSION 3.12)
 project(graphics-math VERSION 0.1.0)
 
-add_library(graphics-math STATIC ${CMAKE_CURRENT_SOURCE_DIR}/src/transform.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/onb.cpp)
+add_library(graphics-math INTERFACE)
+#  ${CMAKE_CURRENT_SOURCE_DIR}/src/transform.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/onb.cpp)
 include_directories(include)
 # target_include_directories(
 #   ${PROJECT_NAME}
 #   INTERFACE include)
 
 find_package(gcem CONFIG REQUIRED)
-target_link_libraries(graphics-math PRIVATE gcem)
+target_link_libraries(graphics-math INTERFACE gcem)
 
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
 # install(FILES test.h DESTINATION include)

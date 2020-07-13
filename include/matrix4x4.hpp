@@ -151,6 +151,7 @@ namespace gm {
 
         auto constexpr operator=(Matrix4x4<Type> const& other) -> Matrix4x4<Type> {
             m = other.m; 
+            return *this; 
         }
 
     };
