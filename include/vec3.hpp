@@ -51,7 +51,7 @@ namespace gm {
             if constexpr (std::is_floating_point_v<Type>) {
                 return gcem::abs(x - other.x) < constants::epsilon
                     && gcem::abs(y - other.y) < constants::epsilon
-                    && gcem::abs(y - other.y) < constants::epsilon;
+                    && gcem::abs(z - other.z) < constants::epsilon;
             } else {
                 return x == other.x && y == other.y && z == other.z;
             }
@@ -61,7 +61,7 @@ namespace gm {
             if constexpr (std::is_floating_point_v<Type>) {
                 return gcem::abs(x - other.x) > constants::epsilon
                     || gcem::abs(y - other.y) > constants::epsilon
-                    || gcem::abs(y - other.y) > constants::epsilon;
+                    || gcem::abs(z - other.z) > constants::epsilon;
             } else {
                 return x != other.x || y != other.y || z != other.z;
             }

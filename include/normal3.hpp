@@ -3,6 +3,8 @@
 #include "util.hpp"
 // #include "vec3.hpp"
 
+#include <ostream>
+
 namespace gm { 
 
     template<typename Type>
@@ -17,6 +19,30 @@ namespace gm {
         auto constexpr x() const -> Type { return m_x; }
         auto constexpr y() const -> Type { return m_y; }
         auto constexpr z() const -> Type { return m_z; }
+
+        auto constexpr operator==(Normal3<Type> const& other) const -> bool {
+            if constexpr (std::is_floating_point_v<Type>) {
+                return gcem::abs(x() - other.x()) < constants::epsilon
+                    && gcem::abs(y() - other.y()) < constants::epsilon
+                    && gcem::abs(z() - other.z()) < constants::epsilon;
+            } 
+            return x() == other.x() && y() == other.y() && z() == other.z();
+        }
+
+        auto constexpr operator!=(Normal3<Type> const& other) const -> bool {
+            if constexpr (std::is_floating_point_v<Type>) {
+                return gcem::abs(x() - other.x()) > constants::epsilon
+                    || gcem::abs(y() - other.y()) > constants::epsilon
+                    || gcem::abs(z() - other.z()) > constants::epsilon;
+            } else {
+                return x() != other.x() || y() != other.y() || z() != other.z();
+            }
+        } 
+
+        auto friend operator<<(std::ostream &os, Normal3<Type> const& n) -> std::ostream & {
+            os << '[' << n.x() << ',' << n.y() << ',' << n.z() <<']' << '\n';
+            return os;
+        }
     };
 
     template<typename Type>

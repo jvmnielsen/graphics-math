@@ -22,7 +22,11 @@ TEST_CASE(
     SECTION("scale") {
         transform.scale(scale); 
         auto const scaled_point = transform.apply(point);
-        REQUIRE(scaled_point == point);
+        REQUIRE(scaled_point == Point3f{ 1, 4, 1 });
+        auto const scaled_vec = transform.apply(vec);
+        REQUIRE(scaled_vec == Vec3f{ 0, 4, 0 });
+        auto const scaled_normal = transform.apply(normal);
+        REQUIRE(scaled_normal == Vec3f{ 0, 1, 0 }.to_normal());
     }
 
     REQUIRE(true);
