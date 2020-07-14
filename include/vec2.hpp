@@ -39,30 +39,39 @@ namespace gm {
         }
 
         auto constexpr operator==(Vec2<Type> const& other) const -> bool {
-            return x == other.x && y == other.y;
+            if constexpr (std::is_floating_point_v<Type>) {
+                return gcem::abs(x - other.x) < constants::epsilon
+                    && gcem::abs(y - other.y) < constants::epsilon;
+            } else {
+                return x == other.x && y == other.y;
+            }
         }
 
         auto constexpr operator!=(Vec2<Type> const& other) const -> bool {
-            return x != other.x || y != other.y;
+            if constexpr (std::is_floating_point_v<Type>) {
+                return gcem::abs(x - other.x) > constants::epsilon
+                    || gcem::abs(y - other.y) > constants::epsilon;
+            } else {
+                return x != other.x || y != other.y;
+            }
         } 
 
         auto constexpr dot(Vec2 const& other) const -> Type {
-            return gm::dot(*this, other); 
+            return dot(*this, other); 
         }
 
         auto constexpr cross(Vec2<Type> const& other) const -> Vec2<Type> {
-            return gm::cross(*this, other); 
+            return cross(*this, other); 
         }
 
         auto constexpr operator/(Type const scalar) const -> Vec2<Type> {
             return { x / scalar, y / scalar };
         }
 
-        // auto constexpr to_normal() const -> Normal2<Type> {
-        //     auto const len = length();
-        //     assert(len > 0);
-        //     return { x / len, y / len, z / len };
-        // }
+        auto friend operator<<(std::ostream &os, Vec2<Type> const& v) -> std::ostream & {
+            os << '[' << v.x << ',' << v.y << ']' << '\n';
+            return os;
+        }
 
     };
 
