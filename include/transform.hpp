@@ -7,14 +7,9 @@
 
 namespace gm {
 
-    class Transform
-    {
+    class Transform {
     public:
     constexpr Transform() : m_matrix(Matrix4x4f::identity()), m_inverse(Matrix4x4f::identity()) { }
-
-    // auto constexpr translate(Vec3f const& vec) -> Transform&;
-    // auto constexpr scale(Vec3f const& vec) -> Transform&;
-    // auto constexpr rotate(Vec3f const& axis, FLOAT angle) -> Transform&;
 
     auto constexpr Transform::translate(Vec3f const& vec) -> Transform& {
         m_matrix *= {
@@ -87,11 +82,6 @@ namespace gm {
 
         return *this;
     }
-
-    // auto constexpr apply(Point3f const& point) const -> Point3f;
-    // auto constexpr apply(Vec3f const& vec) const -> Vec3f;
-    // auto constexpr apply(Normal3f const& normal) const -> Normal3f;
-
     
     auto constexpr Transform::apply(Point3f const& point) const -> Point3f {
 
@@ -113,12 +103,14 @@ namespace gm {
 
     auto constexpr Transform::apply(Normal3f const& normal) const -> Normal3f {
 
-        // Note indices: we're using the transpose
+        // Note: normals are transformed using the inverse transpose matrix
         const auto x = m_inverse(0,0) * normal.x() + m_inverse(1,0) * normal.y() + m_inverse(2,0) * normal.z();
         const auto y = m_inverse(0,1) * normal.x() + m_inverse(1,1) * normal.y() + m_inverse(2,1) * normal.z();
         const auto z = m_inverse(0,2) * normal.x() + m_inverse(1,2) * normal.y() + m_inverse(2,2) * normal.z();
         return Vec3f{ x, y, z }.to_normal();
     }
+
+    // TODO: undo functions
 
     private:
         Matrix4x4f m_matrix;
