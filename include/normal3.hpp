@@ -10,7 +10,7 @@ namespace gm {
     template<typename Type>
     class Normal3 {
     private:
-        template<typename T, std::enable_if_t<std::is_arithmetic<T>::value, int> = 0>
+        template<typename>
         friend class Vec3;
 
         constexpr Normal3(Type x, Type y, Type z) : m_x(x), m_y(y), m_z(z) { }  
@@ -39,11 +39,18 @@ namespace gm {
             }
         } 
 
+        constexpr operator Vec3<Type>() const { return Vec3f{ x(), y(), z() }; }
+
         auto friend operator<<(std::ostream &os, Normal3<Type> const& n) -> std::ostream & {
             os << '[' << n.x() << ',' << n.y() << ',' << n.z() <<']' << '\n';
             return os;
         }
     };
+
+    template<typename Type>
+    auto constexpr operator*(Type const scalar, Normal3<Type> const& n) -> Vec3<Type> {
+        return { scalar * n.x(), scalar * n.y(), scalar * n.z() };
+    }
 
     template<typename Type>
     auto constexpr dot(Normal3<Type> const& v, Normal3<Type> const& u) -> Type {

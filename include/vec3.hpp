@@ -11,12 +11,12 @@
 
 namespace gm {
 
-    template<typename Type, std::enable_if_t<std::is_arithmetic<Type>::value, int> = 0>
+    template<typename Type>
     class Vec3 {
     public:
         Type x, y, z;
 
-        constexpr Vec3() { x = y = z = 0; }
+        constexpr Vec3() : x(0), y(0), z(0) { }
         constexpr Vec3(Type x, Type y, Type z) : x(x), y(y), z(z) { }
 
         auto constexpr length_squared() const -> Type {

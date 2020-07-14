@@ -6,8 +6,7 @@
 
 using namespace gm;
 
-TEST_CASE(
-    "Transformations", "[Transform]") {
+TEST_CASE("Transformations", "[Transform]") {
 
     auto transform = gm::Transform();
     auto const scale = Vec3f{ 1, 4, 1 };
@@ -51,7 +50,14 @@ TEST_CASE(
         auto const rotated_normal = transform.apply(normal);
         REQUIRE(rotated_normal == Vec3f{ 0, 0, 1 }.to_normal());
     }
-    
+}
 
-
+TEST_CASE("Orthonormal basis", "[ONB]") {
+    auto constexpr onb = ONB(Vec3f{1, 1, 0}.to_normal()); 
+    auto constexpr x = Vec3f{1, 0, 0}; 
+    auto constexpr y = Vec3f{0, 1, 0}; 
+    auto constexpr z = Vec3f{0, 0, 1}; 
+    REQUIRE(onb.convert_to_local(x) == static_cast<Vec3f>(onb.u()));
+    REQUIRE(onb.convert_to_local(y) == static_cast<Vec3f>(onb.v()));
+    REQUIRE(onb.convert_to_local(z) == static_cast<Vec3f>(onb.w()));
 }
