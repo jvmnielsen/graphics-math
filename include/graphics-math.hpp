@@ -9,3 +9,4 @@
 #include "normal3.hpp"
 #include "onb.hpp"
 #include "transform.hpp"
+#include "color3.hpp"

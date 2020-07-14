@@ -2,6 +2,8 @@
 
 #include <catch2/catch.hpp>
 
+using namespace gm; 
+
 TEMPLATE_TEST_CASE(
     "Degree to radian", "[degree_to_radian]",
     std::int32_t, std::int64_t,
@@ -30,4 +32,17 @@ TEMPLATE_TEST_CASE(
     auto const [val1, val2] = sol1.value(); 
     REQUIRE(val1 == Approx(-3.0f));
     REQUIRE(val2 == Approx(0.5f));
+}
+
+
+TEMPLATE_TEST_CASE("Color tests", "[Color3]", float, double) {
+
+    auto constexpr black = Color3f::black(); 
+    REQUIRE(black.is_black());
+    auto constexpr green = Color3f{ 0.1, 0.8, 0.1 };
+    auto constexpr red = Color3f{ 0.8, 0.1, 0.1 };
+    auto constexpr blue = Color3f{ 0.1, 0.1, 0.8 };
+    REQUIRE(green + red == Color3f{ 0.9, 0.9, 0.2 }); 
+    REQUIRE(2.0f * blue == Color3f{ 0.2, 0.2, 1.6 }); 
+    REQUIRE(blue - red == Color3f{ -0.7, 0, 0.7}); 
 }
