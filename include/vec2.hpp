@@ -1,5 +1,9 @@
 #pragma once
 #include <gcem.hpp>
+#include "util.hpp"
+
+#include <ostream>
+
 
 namespace gm {
 

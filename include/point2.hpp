@@ -2,7 +2,9 @@
 
 
 #include "vec2.hpp"
+#include "util.hpp"
 
+#include <ostream>
 
 namespace gm {
 
@@ -10,8 +12,8 @@ template<typename Type>
 class Point2 {
     Type x, y, z;
 
-    constexpr Point3() { x = y = z = 0; }
-    constexpr Point3(Type x, Type y, Type z) : x(x), y(y), z(z) { }
+    constexpr Point2() { x = y = z = 0; }
+    constexpr Point2(Type x, Type y, Type z) : x(x), y(y), z(z) { }
 
     auto constexpr operator==(Point2<Type> const& other) const -> bool {
         if constexpr (std::is_floating_point_v<Type>) {
