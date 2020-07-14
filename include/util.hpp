@@ -3,7 +3,9 @@
 #include <optional>
 
 #define REQUIRES(...) typename std::enable_if<(__VA_ARGS__), int>::type = 0
-#define FLOAT float
+#ifndef FLOAT
+    #define FLOAT float
+#endif 
 
 namespace gm {
 
