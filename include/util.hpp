@@ -1,6 +1,7 @@
 #pragma once
 
 #include <optional>
+#include <tuple>
 
 #define REQUIRES(...) typename std::enable_if<(__VA_ARGS__), int>::type = 0
 #ifndef FLOAT
