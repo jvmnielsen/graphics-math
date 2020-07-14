@@ -49,7 +49,7 @@ class Point2 {
 
 };
 
-typedef Point2<FLOAT> Point3f;
-typedef Point2<int> Point3i;
+typedef Point2<FLOAT> Point2f;
+typedef Point2<int> Point2i;
 
 }
