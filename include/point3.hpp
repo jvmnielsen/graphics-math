@@ -4,6 +4,7 @@
 #include "vec3.hpp"
 
 #include <ostream>
+#include <algorithm>
 
 namespace gm {
 
@@ -46,11 +47,33 @@ namespace gm {
             return { x - v.x, y - v.y, z - v.z };
         }
 
+        auto constexpr operator+(Point3<Type> const& p) const -> Point3<Type> {
+            return { x + p.x, y + p.y, z + p.z };
+        }
+
+        auto constexpr operator[](std::size_t const index) const -> Type {
+            assert(index >= 0 && index <= 2);
+            if (index == 0) return x; 
+            if (index == 1) return y; 
+            return z;
+        }
+
         auto friend operator<<(std::ostream &os, Point3<Type> const& p) -> std::ostream & {
             os << '(' << p.x << ',' << p.y << ',' << p.z <<')' << '\n';
             return os;
         }
     };
+
+    
+    template<typename Type>
+    auto elementwise_min(const Point3<Type>& a, const Point3<Type>& b) -> Point3<Type> {
+        return {std::min(a.x, b.x), std::min(a.y, b.y), std::min(a.z, b.z)};
+    }
+
+    template<typename Type>
+    auto elementwise_max(const Point3<Type>& a, const Point3<Type>& b) -> Point3<Type> {
+        return {std::max(a.x, b.x), std::max(a.y, b.y), std::max(a.z, b.z)};
+    }
 
     typedef Point3<FLOAT> Point3f;
     typedef Point3<int> Point3i;
