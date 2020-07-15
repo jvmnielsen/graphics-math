@@ -1,6 +1,7 @@
 #pragma once
 #include <gcem.hpp>
 #include "util.hpp"
+#include "vec3.hpp"
 
 #include <ostream>
 
