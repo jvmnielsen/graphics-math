@@ -76,12 +76,6 @@ namespace gm {
         return n.x() * u.x + n.y() * u.y + n.z() * u.z;
     }
 
-    template<typename Type>
-    auto constexpr dot(Vec3<Type> const& u, Normal3<Type> const& n) -> Type {
-        return n.x() * u.x + n.y() * u.y + n.z() * u.z;
-    }
-
-
     template<typename Type> 
     auto constexpr cross(Normal3<Type> const& n, Vec3<Type> const& v) -> Vec3<Type> {
         return { n.y() * v.z - n.z() * v.y,
