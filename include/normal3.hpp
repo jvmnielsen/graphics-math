@@ -48,7 +48,7 @@ namespace gm {
 
         // unary minus
         auto constexpr operator-() const -> Normal3<Type> { 
-            return { -x, -y, -z };
+            return { -m_x, -m_y, -m_z };
         }
 
     };
