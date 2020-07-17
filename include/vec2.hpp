@@ -36,6 +36,14 @@ namespace gm {
             return { x - other.x, y - other.y };
         }
 
+        auto constexpr operator*(Type scalar) const -> Vec2<Type> {
+            return { x * scalar, y * scalar };
+        }
+
+        auto constexpr operator/(Type scalar) const -> Vec2<Type> {
+            return { x / scalar, y / scalar };
+        }
+
         // unary minus
         auto constexpr operator-() const -> Vec2<Type> { 
             return { -x, -y };
@@ -99,6 +107,12 @@ namespace gm {
     auto constexpr operator*(Type const scalar, Vec2<Type> const& v) -> Vec2<Type> {
         return { scalar * v.x, scalar * v.y };
     }
+
+    template<typename Type>
+    auto constexpr operator/(Type const scalar, Vec2<Type> const& v) -> Vec2<Type> {
+        return { scalar / v.x, scalar / v.y };
+    }
+
 
     typedef Vec2<FLOAT> Vec2f;
     typedef Vec2<int> Vec2i;
