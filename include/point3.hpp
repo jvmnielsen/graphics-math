@@ -82,6 +82,16 @@ namespace gm {
         return {std::max(a.x, b.x), std::max(a.y, b.y), std::max(a.z, b.z)};
     }
 
+    template<typename Type>
+    auto constexpr operator*(Type const scalar, Point3<Type> const& p) -> Point3<Type> {
+        return { scalar * p.x, scalar * p.y, scalar * p.z };
+    }
+
+    template<typename Type>
+    auto constexpr operator/(Type const scalar, Point3<Type> const& p) -> Point3<Type> {
+        return { p.x / scalar, p.y / scalar, p.z / scalar };
+    }
+
     typedef Point3<FLOAT> Point3f;
     typedef Point3<int> Point3i;
 

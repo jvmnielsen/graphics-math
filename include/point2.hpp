@@ -78,6 +78,16 @@ auto elementwise_max(const Point2<Type>& a, const Point2<Type>& b) -> Point2<Typ
     return {std::max(a.x, b.x), std::max(a.y, b.y)};
 }
 
+template<typename Type>
+auto constexpr operator*(Type const scalar, Point2<Type> const& p) -> Point2<Type> {
+    return { scalar * p.x, scalar * p.y };
+}
+
+template<typename Type>
+auto constexpr operator/(Type const scalar, Point2<Type> const& p) -> Point2<Type> {
+    return { p.x / scalar, p.y / scalar };
+}
+
 typedef Point2<FLOAT> Point2f;
 typedef Point2<int> Point2i;
 

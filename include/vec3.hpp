@@ -123,7 +123,7 @@ namespace gm {
 
     template<typename Type>
     auto constexpr operator/(Type const scalar, Vec3<Type> const& v) -> Vec3<Type> {
-        return { scalar / v.x, scalar / v.y, scalar / v.z };
+        return { v.x / scalar, v.y / scalar, v.z / scalar };
     }
 
     typedef Vec3<FLOAT> Vec3f;
