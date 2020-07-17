@@ -54,6 +54,10 @@ namespace gm {
             return { x + p.x, y + p.y, z + p.z };
         }
 
+        auto constexpr operator/(Type div) const -> Point3<Type> {
+            return { x / div, y / div, z / div }; 
+        }
+
         auto constexpr operator[](std::size_t const index) const -> Type {
             assert(index >= 0 && index <= 2);
             if (index == 0) return x; 

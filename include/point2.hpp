@@ -49,6 +49,10 @@ class Point2 {
         return { x - v.x, y - v.y, z - v.z };
     }
 
+    auto constexpr operator/(Type div) const -> Point2<Type> {
+        return { x / div, y / div }; 
+    }
+
     auto constexpr operator[](std::size_t const index) const -> Type {
         assert(index >= 0 && index <= 2);
         if (index == 0) return x; 
