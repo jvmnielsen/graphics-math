@@ -14,13 +14,10 @@ namespace gm {
         Type r, g, b;
 
         constexpr Color3() : r(0), g(0), b(0) { }
-        // constexpr Color3(Type val) : r(val), g(val), b(val) { }
-        auto constexpr static fill(Type val) -> Color3<Type> {
-            return { val, val, val }; 
-        } 
+        constexpr explicit Color3(Type val) : r(val), g(val), b(val) { }
         constexpr Color3(Type r_, Type g_, Type b_) : r(r_), g(g_), b(b_) { }
 
-        auto static constexpr black() -> Color3 { return Color3::fill(0); }
+        auto static constexpr black() -> Color3 { return Color3{0}; }
 
         auto constexpr operator==(Color3<Type> const& other) const -> bool {
             if constexpr (std::is_floating_point_v<Type>) {

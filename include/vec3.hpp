@@ -20,9 +20,7 @@ namespace gm {
         Type x, y, z;
 
         constexpr Vec3() : x(0), y(0), z(0) { }
-        auto constexpr static fill(Type val) -> Vec3<Type> {
-            return { val, val, val }; 
-        } 
+        constexpr explicit Vec3(Type val) : x(val), y(val), z(val) { }
         constexpr Vec3(Type x, Type y, Type z) : x(x), y(y), z(z) { }
 
         auto constexpr length_squared() const -> Type {
