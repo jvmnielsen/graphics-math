@@ -15,6 +15,9 @@ namespace gm {
 
         constexpr Vec2() : x(0), y(0) { }
         constexpr Vec2(Type x, Type y) : x(x), y(y) { }
+        auto constexpr static fill(Type val) -> Vec2<Type> {
+            return { val, val }; 
+        } 
         constexpr explicit Vec2(Vec3<Type> const& v) : x(v.x), y(v.y) { }
 
         auto constexpr length_squared() const -> Type {

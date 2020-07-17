@@ -15,6 +15,9 @@ namespace gm {
 
         constexpr Point3() { x = y = z = 0; }
         constexpr Point3(Type x, Type y, Type z) : x(x), y(y), z(z) { }
+        auto constexpr static fill(Type val) -> Point3<Type> {
+            return { val, val, val }; 
+        } 
 
         auto constexpr operator==(Point3<Type> const& other) const -> bool {
             if constexpr (std::is_floating_point_v<Type>) {

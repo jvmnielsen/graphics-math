@@ -15,6 +15,9 @@ class Point2 {
 
     constexpr Point2() : x(0), y(0), z(0) { }
     constexpr Point2(Type x, Type y) : x(x), y(y){ }
+    auto constexpr static fill(Type val) -> Point2<Type> {
+            return { val, val }; 
+    } 
     constexpr explicit Point2(Point3<Type> const& p) : x(p.x), y(p.y) { }
 
     auto constexpr operator==(Point2<Type> const& other) const -> bool {
