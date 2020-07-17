@@ -11,6 +11,7 @@ namespace gm {
 
 template<typename Type>
 class Point2 {
+public:
     Type x, y, z;
 
     constexpr Point2() : x(0), y(0), z(0) { }
