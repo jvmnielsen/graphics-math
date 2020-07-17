@@ -18,7 +18,7 @@ namespace gm {
             m_basis[2] = normal;
 
             Vec3f a;
-            if (gcem::abs(normal.x() > 0.9)) { // is the normal the x-axis?
+            if (gcem::abs(normal.x()) > 0.9) { // is the normal the x-axis?
                 a = Vec3f{0.0, 1.0, 0.0};
             } else {
                 a = Vec3f{1.0, 0.0, 0.0};
