@@ -81,10 +81,6 @@ namespace gm {
             return cross(*this, other); 
         }
 
-        auto constexpr operator/(Type const scalar) const -> Vec2<Type> {
-            return { x / scalar, y / scalar };
-        }
-
         auto friend operator<<(std::ostream &os, Vec2<Type> const& v) -> std::ostream & {
             os << '[' << v.x << ',' << v.y << ']' << '\n';
             return os;

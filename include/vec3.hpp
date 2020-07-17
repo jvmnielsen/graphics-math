@@ -86,10 +86,6 @@ namespace gm {
             return gm::cross(*this, other); 
         }
 
-        auto constexpr operator/(Type const scalar) const -> Vec3<Type> {
-            return { x / scalar, y / scalar, z / scalar };
-        }
-
         auto constexpr normalise() const -> Normal3<Type> {
             static_assert(std::is_floating_point_v<Type>);
             auto const len = length();
