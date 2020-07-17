@@ -84,6 +84,13 @@ namespace gm {
     }
 
     template<typename Type> 
+    auto constexpr cross(Vec3<Type> const& v, Normal3<Type> const& n) -> Vec3<Type> {
+        return { v.y * n.z() - v.z * n.y(),
+                 v.z * n.x() - v.x * n.z(),
+                 v.x * n.y() - v.y * n.x() };
+    }
+
+    template<typename Type> 
     auto constexpr cross(Normal3<Type> const& n, Normal3<Type> const& m) -> Vec3<Type> {
         return { n.y() * m.z() - n.z() * m.y(),
                  n.z() * m.x() - n.x() * m.z(),
