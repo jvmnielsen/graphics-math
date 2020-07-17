@@ -8,7 +8,7 @@ namespace gm {
     // Orthonormal Basis
     class ONB {
     public:
-        constexpr ONB::ONB(Normal3f const& normal) : m_basis(
+        constexpr ONB(Normal3f const& normal) : m_basis(
             std::array<Normal3f, 3>{ 
                 Vec3f{1, 0, 0}.normalise(),
                 Vec3f{0, 1, 0}.normalise(),

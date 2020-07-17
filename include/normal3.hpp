@@ -1,20 +1,21 @@
 #pragma once
 
 #include "util.hpp"
-// #include "vec3.hpp"
+#include "vec3.hpp"
 
 #include <ostream>
 
-namespace gm { 
+namespace gm {
 
     template<typename Type>
     class Normal3 {
     private:
+        constexpr Normal3(Type x, Type y, Type z) : m_x(x), m_y(y), m_z(z) { }
+        Type m_x, m_y, m_z;
+
         template<typename>
         friend class Vec3;
 
-        constexpr Normal3(Type x, Type y, Type z) : m_x(x), m_y(y), m_z(z) { }  
-        Type m_x, m_y, m_z;   
     public:
         auto constexpr x() const -> Type { return m_x; }
         auto constexpr y() const -> Type { return m_y; }
@@ -50,7 +51,6 @@ namespace gm {
         auto constexpr operator-() const -> Normal3<Type> { 
             return { -m_x, -m_y, -m_z };
         }
-
     };
 
     template<typename Type>

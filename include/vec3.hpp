@@ -1,6 +1,6 @@
 #pragma once
 #include "util.hpp"
-#include "normal3.hpp"
+//#include "normal3.hpp"
 
 #include <gcem.hpp>
 
@@ -10,6 +10,9 @@
 
 
 namespace gm {
+
+    template<typename>
+    class Normal3;
 
     template<typename Type>
     class Vec3 {
@@ -79,12 +82,16 @@ namespace gm {
         } 
 
         auto constexpr dot(Vec3 const& other) const -> Type {
-            return gm::dot(*this, other); 
+            return x * other.x + y * other.y + z * other.z;
         }
 
-        auto constexpr cross(Vec3<Type> const& other) const -> Vec3<Type> {
-            return gm::cross(*this, other); 
+        auto constexpr cross(Vec3<Type> const& v) const -> Vec3<Type> {
+            return { y * v.z - z * v.y,
+                     z * v.x - x * v.z,
+                     x * v.y - y * v.x };
         }
+
+
 
         auto constexpr normalise() const -> Normal3<Type> {
             static_assert(std::is_floating_point_v<Type>);
@@ -106,14 +113,12 @@ namespace gm {
 
     template<typename Type>
     auto constexpr dot(Vec3<Type> const& v, Vec3<Type> const& u) -> Type {
-        return v.x * u.x + v.y * u.y + v.z * u.z;
+        return v.dot(u);
     }
 
-    template<typename Type> 
+    template<typename Type>
     auto cross(Vec3<Type> const& u, Vec3<Type> const& v) -> Vec3<Type> {
-        return { u.y * v.z - u.z * v.y,
-                 u.z * v.x - u.x * v.z,
-                 u.x * v.y - u.y * v.x };
+        return u.cross(v);
     }
 
     template<typename Type>

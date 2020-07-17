@@ -11,7 +11,7 @@ namespace gm {
     public:
     constexpr Transform() : m_matrix(Matrix4x4f::identity()), m_inverse(Matrix4x4f::identity()) { }
 
-    auto constexpr Transform::translate(Vec3f const& vec) -> Transform& {
+    auto constexpr translate(Vec3f const& vec) -> Transform& {
         m_matrix *= {
             1, 0, 0, vec.x,
             0, 1, 0, vec.y,
@@ -28,7 +28,7 @@ namespace gm {
         return *this;
     }
 
-    auto constexpr Transform::scale(Vec3f const& vec) -> Transform&
+    auto constexpr scale(Vec3f const& vec) -> Transform&
     {
         m_matrix *= {
             vec.x,     0,     0, 0,
@@ -47,7 +47,7 @@ namespace gm {
         return *this;
     }
 
-    auto constexpr Transform::rotate(Vec3f const& axis, FLOAT angle) -> Transform& {
+    auto constexpr rotate(Vec3f const& axis, FLOAT angle) -> Transform& {
 
         auto const norm_axis = axis.normalise();
         auto const rad = degree_to_radian(angle);
@@ -83,7 +83,7 @@ namespace gm {
         return *this;
     }
     
-    auto constexpr Transform::apply(Point3f const& point) const -> Point3f {
+    auto constexpr apply(Point3f const& point) const -> Point3f {
 
         const auto x = m_matrix(0,0) * point.x + m_matrix(0,1) * point.y + m_matrix(0,2) * point.z + m_matrix(0,3);
         const auto y = m_matrix(1,0) * point.x + m_matrix(1,1) * point.y + m_matrix(1,2) * point.z + m_matrix(1,3);
@@ -93,7 +93,7 @@ namespace gm {
         return {x/w, y/w, z/w};
     }
 
-    auto constexpr Transform::apply(Vec3f const& vec) const -> Vec3f {
+    auto constexpr apply(Vec3f const& vec) const -> Vec3f {
 
         const auto x = m_matrix(0,0) * vec.x + m_matrix(0,1) * vec.y + m_matrix(0,2) * vec.z;
         const auto y = m_matrix(1,0) * vec.x + m_matrix(1,1) * vec.y + m_matrix(1,2) * vec.z;
@@ -101,7 +101,7 @@ namespace gm {
         return {x, y, z};
     }
 
-    auto constexpr Transform::apply(Normal3f const& normal) const -> Normal3f {
+    auto constexpr apply(Normal3f const& normal) const -> Normal3f {
 
         // Note: normals are transformed using the inverse transpose matrix
         const auto x = m_inverse(0,0) * normal.x() + m_inverse(1,0) * normal.y() + m_inverse(2,0) * normal.z();

@@ -8,6 +8,7 @@
 #include <array>
 #include <algorithm>
 #include <iomanip>
+#include <cmath>
 
 namespace gm {
 
