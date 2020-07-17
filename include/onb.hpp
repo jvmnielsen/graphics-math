@@ -10,9 +10,9 @@ namespace gm {
     public:
         constexpr ONB::ONB(Normal3f const& normal) : m_basis(
             std::array<Normal3f, 3>{ 
-                Vec3f{1, 0, 0}.to_normal(),
-                Vec3f{0, 1, 0}.to_normal(),
-                Vec3f{0, 0, 1}.to_normal()
+                Vec3f{1, 0, 0}.normalise(),
+                Vec3f{0, 1, 0}.normalise(),
+                Vec3f{0, 0, 1}.normalise()
             }) {
 
             m_basis[2] = normal;
@@ -24,8 +24,8 @@ namespace gm {
                 a = Vec3f{1.0, 0.0, 0.0};
             }
 
-            m_basis[1] = cross(m_basis[2], a).to_normal();
-            m_basis[0] = cross(m_basis[1], m_basis[2]).to_normal();
+            m_basis[1] = cross(m_basis[2], a).normalise();
+            m_basis[0] = cross(m_basis[1], m_basis[2]).normalise();
         }
         
         auto constexpr operator[](int i) const ->  Normal3f const& {

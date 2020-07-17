@@ -82,7 +82,7 @@ namespace gm {
             return { x / scalar, y / scalar, z / scalar };
         }
 
-        auto constexpr to_normal() const -> Normal3<Type> {
+        auto constexpr normalise() const -> Normal3<Type> {
             static_assert(std::is_floating_point_v<Type>);
             auto const len = length();
             assert(len > 0);

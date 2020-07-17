@@ -123,7 +123,7 @@ TEMPLATE_TEST_CASE( "accessors", "[Vec3]", std::int32_t, std::int64_t, float, do
 
 TEMPLATE_TEST_CASE( "To normal", "[Vec3]", float, double ) {
     auto constexpr v = gm::Vec3<TestType>{ 1, 1, 2 };
-    auto constexpr n = v.to_normal();
+    auto constexpr n = v.normalise();
 
     REQUIRE(n.x() == Approx(0.40824829046));
     REQUIRE(n.y() == Approx(0.40824829046));
@@ -134,8 +134,8 @@ TEMPLATE_TEST_CASE( "To normal", "[Vec3]", float, double ) {
 TEMPLATE_TEST_CASE( "Normal operations", "[Normal3]", float, double ) {
     auto constexpr v = gm::Vec3<TestType>{ -3, 10, 9 };
     auto constexpr u = gm::Vec3<TestType>{ 3, -2, 20 };
-    auto constexpr n = v.to_normal();
-    auto constexpr m = u.to_normal();
+    auto constexpr n = v.normalise();
+    auto constexpr m = u.normalise();
     SECTION("dot product: normal/vec") {
         REQUIRE(dot(n, v) == Approx(13.78404875));
     }

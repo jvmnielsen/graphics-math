@@ -49,7 +49,7 @@ namespace gm {
 
     auto constexpr Transform::rotate(Vec3f const& axis, FLOAT angle) -> Transform& {
 
-        auto const norm_axis = axis.to_normal();
+        auto const norm_axis = axis.normalise();
         auto const rad = degree_to_radian(angle);
 
         auto const cos_theta = gcem::cos(rad);
@@ -107,7 +107,7 @@ namespace gm {
         const auto x = m_inverse(0,0) * normal.x() + m_inverse(1,0) * normal.y() + m_inverse(2,0) * normal.z();
         const auto y = m_inverse(0,1) * normal.x() + m_inverse(1,1) * normal.y() + m_inverse(2,1) * normal.z();
         const auto z = m_inverse(0,2) * normal.x() + m_inverse(1,2) * normal.y() + m_inverse(2,2) * normal.z();
-        return Vec3f{ x, y, z }.to_normal();
+        return Vec3f{ x, y, z }.normalise();
     }
 
     // TODO: undo functions

@@ -16,7 +16,7 @@ TEST_CASE("Transformations", "[Transform]") {
 
     auto point = Point3f{ 1, 1, 1 }; 
     auto vec = Vec3f{ 0, 1, 0 };
-    auto normal = Vec3f{ 0, 1, 0 }.to_normal(); 
+    auto normal = Vec3f{ 0, 1, 0 }.normalise(); 
 
     SECTION("scale") {
         auto transform = gm::Transform();
@@ -26,7 +26,7 @@ TEST_CASE("Transformations", "[Transform]") {
         auto const scaled_vec = transform.apply(vec);
         REQUIRE(scaled_vec == Vec3f{ 0, 4, 0 });
         auto const scaled_normal = transform.apply(normal);
-        REQUIRE(scaled_normal == Vec3f{ 0, 1, 0 }.to_normal());
+        REQUIRE(scaled_normal == Vec3f{ 0, 1, 0 }.normalise());
     }
 
     SECTION("translate") { // only affects points
@@ -48,12 +48,12 @@ TEST_CASE("Transformations", "[Transform]") {
         auto const rotated_vec = transform.apply(vec);
         REQUIRE(rotated_vec == Vec3f{ 0, 0, 1 });
         auto const rotated_normal = transform.apply(normal);
-        REQUIRE(rotated_normal == Vec3f{ 0, 0, 1 }.to_normal());
+        REQUIRE(rotated_normal == Vec3f{ 0, 0, 1 }.normalise());
     }
 }
 
 TEST_CASE("Orthonormal basis", "[ONB]") {
-    auto constexpr onb = ONB(Vec3f{1, 1, 0}.to_normal()); 
+    auto constexpr onb = ONB(Vec3f{1, 1, 0}.normalise()); 
     auto constexpr x = Vec3f{1, 0, 0}; 
     auto constexpr y = Vec3f{0, 1, 0}; 
     auto constexpr z = Vec3f{0, 0, 1}; 
