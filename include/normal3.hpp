@@ -51,6 +51,14 @@ namespace gm {
             return { -m_x, -m_y, -m_z };
         }
 
+        auto constexpr operator*(Type scalar) const -> Vec3<Type> {
+            return { m_x * scalar, m_y * scalar, m_z * scalar };
+        }
+
+        auto constexpr operator/(Type scalar) const -> Vec3<Type> {
+            return { m_x / scalar, m_y / scalar, m_z / scalar };
+        }
+
     };
 
     template<typename Type>
