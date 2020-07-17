@@ -39,7 +39,7 @@ namespace gm {
             }
         } 
 
-        constexpr operator Vec3<Type>() const { return Vec3f{ x(), y(), z() }; }
+        constexpr explicit operator Vec3<Type>() const { return Vec3f{ x(), y(), z() }; }
 
         auto friend operator<<(std::ostream &os, Normal3<Type> const& n) -> std::ostream & {
             os << '[' << n.x() << ',' << n.y() << ',' << n.z() <<']' << '\n';
@@ -72,9 +72,15 @@ namespace gm {
     }
 
     template<typename Type>
-    auto constexpr dot(Normal3<Type> const& v, Vec3<Type> const& u) -> Type {
-        return v.x() * u.x + v.y() * u.y + v.z() * u.z;
+    auto constexpr dot(Normal3<Type> const& n, Vec3<Type> const& u) -> Type {
+        return n.x() * u.x + n.y() * u.y + n.z() * u.z;
     }
+
+    template<typename Type>
+    auto constexpr dot(Vec3<Type> const& u, Normal3<Type> const& n) -> Type {
+        return n.x() * u.x + n.y() * u.y + n.z() * u.z;
+    }
+
 
     template<typename Type> 
     auto constexpr cross(Normal3<Type> const& n, Vec3<Type> const& v) -> Vec3<Type> {
