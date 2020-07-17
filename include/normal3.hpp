@@ -45,6 +45,12 @@ namespace gm {
             os << '[' << n.x() << ',' << n.y() << ',' << n.z() <<']' << '\n';
             return os;
         }
+
+        // unary minus
+        auto constexpr operator-() const -> Normal3<Type> { 
+            return { -x, -y, -z };
+        }
+
     };
 
     template<typename Type>
