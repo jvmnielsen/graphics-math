@@ -4,8 +4,9 @@
 
 #include <cstdint>
 #include <ostream>
+#include <algorithm>
 
-namespace gm { 
+namespace gm {
 
     template<typename Type>
     class Color3
@@ -37,7 +38,7 @@ namespace gm {
             } else {
                 return r != other.x || g != other.y || b != other.z;
             }
-        } 
+        }
 
         auto constexpr operator*(Type factor) const -> Color3<Type>         {
             return Color3{r * factor, g * factor, b * factor};
@@ -95,6 +96,21 @@ namespace gm {
             r = std::clamp(r, 0, 1);
             g = std::clamp(g, 0, 1);
             b = std::clamp(b, 0, 1);
+        }
+
+        auto constexpr gamma_encode(FLOAT gamma) -> void {
+            auto const gamma_exponent = 1 / gamma;
+            r = gcem::pow(r, gamma_exponent);
+            g = gcem::pow(g, gamma_exponent);
+            b = gcem::pow(b, gamma_exponent);
+        }
+
+
+        auto constexpr convert_to_rgb() -> void {
+            gamma_encode(*this, 2.2f);
+            r = 255 * std::clamp(r, 0.0f, 1.0f);
+            g = 255 * std::clamp(g, 0.0f, 1.0f);
+            b = 255 * std::clamp(b, 0.0f, 1.0f);
         }
 
         auto friend operator<<(std::ostream &os, Color3<Type> const& c) -> std::ostream & {
