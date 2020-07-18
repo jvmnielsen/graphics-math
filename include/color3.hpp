@@ -107,7 +107,7 @@ namespace gm {
 
 
         auto constexpr convert_to_rgb() -> void {
-            gamma_encode(*this, 2.2f);
+            gamma_encode(2.2f);
             r = 255 * std::clamp(r, 0.0f, 1.0f);
             g = 255 * std::clamp(g, 0.0f, 1.0f);
             b = 255 * std::clamp(b, 0.0f, 1.0f);
