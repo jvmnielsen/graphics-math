@@ -71,63 +71,6 @@ namespace gm {
                      0, 0, 0, 1 };
         }
 
-        auto inverse() const -> Matrix4x4<Type> {
-            //static_assert(N == M, "Matrix is not square!");
-
-            auto tmp = *this;
-            auto invTmp = tmp.identity();
-
-            // Switch rows around so there is a leading number in each
-            // Set the diagonal to 1 by dividing the row with the leading element
-            // Reduce upper right-hand entries to zero by subtracting fractions of below rows
-            // This is all done in parallel to the adjoined identity matrix
-
-            for (int i = 0; i < 4; ++i) {
-                if (tmp.m[i][i] == 0) // Our row had a leading zero
-                {
-                    auto big = i;
-                    for (int j = 0; j < 4; ++j) // Check remaining rows
-                    {
-                        if (std::abs(tmp.m[j][i]) > std::abs(tmp.m[big][i])) {
-                            big = j; // Another row has a (absolute) larger leading value
-                        }
-                    }
-
-                    if (big != i)  // The matrix wasn't singular, i.e. another row could be switched in
-                    {
-                        for (int k = 0; k < 4; ++k) {
-                            std::swap(tmp.m[i][k], tmp.m[big][k]); // swap rows
-                            std::swap(invTmp.m[i][k], invTmp.m[big][k]);
-                        }
-                    }
-                }
-
-                auto divisor = tmp.m[i][i];
-                for (int j = 0; j < 4; ++j) {
-                    tmp.m[i][j] /= divisor;
-                    invTmp.m[i][j] /= divisor;
-                }
-
-                for (int j = 0; j < 4; ++j) {
-                    if (j != i && tmp.m[i][i] != 0) {
-                        auto coefficient = tmp.m[j][i] / tmp.m[i][i];
-                        if (coefficient != 0) {
-                            for (int k = 0; k < 4; ++k) {
-                                tmp.m[j][k] -= coefficient * tmp.m[i][k];
-                                tmp.m[j][k] = 0;
-                                invTmp.m[j][k] -= coefficient * invTmp.m[i][k];
-                            }
-
-                        }
-                    }
-                }
-
-            }
-
-            return invTmp;
-        }
-
-
         static auto constexpr multiply(Matrix4x4<Type> const& a, Matrix4x4<Type> const& b) -> Matrix4x4<Type> {
             // rolled up version rather than writing out the arguments
             auto c = Matrix4x4::identity();

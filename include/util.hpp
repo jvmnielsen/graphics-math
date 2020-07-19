@@ -19,12 +19,6 @@ namespace gm {
         inline constexpr FLOAT inv_pi = static_cast<FLOAT>(0.31830988618379067154);
         inline constexpr FLOAT epsilon = static_cast<FLOAT>(1e-5);
     };
-  
-    // as of c++17 this is defined in the STL
-    // template<typename T>
-    // auto constexpr clamp(T low, T high, T value) -> T {
-    //     return std::max(low, std::min(high, value));
-    // }
 
     inline auto power_heuristic(int nf, FLOAT fPdf, int ng, FLOAT gPdf) -> float {
         const auto f = nf * fPdf, g = ng * gPdf;
