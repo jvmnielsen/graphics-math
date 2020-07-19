@@ -10,7 +10,7 @@ A small, fully `constexpr`, header-only C++17 mathematics library for graphics. 
 * Miscellaneous utility: `Color3`, *constants*
 
 ## Dependencies
-* [gcem](https://github.com/jvmnielsen/traced)
+* [gcem](https://github.com/kthohr/gcem)
 
 I recommend installing dependencies via a package manager such as [vcpkg](https://github.com/Microsoft/vcpkg), and then invoking CMake with `-DCMAKE_TOOLCHAIN_FILE=[path to vcpkg]/scripts/buildsystems/vcpkg.cmake`, pointing it to the relevant toolcahin file. 
 
